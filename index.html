@@ -3,153 +3,330 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
     <title>Muhammad Zeeshan - Resume</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-
-        <h1> <span>MUHAMMAD</span> ZEESHAN </h1>
-
-        <p>Enhance <span>Skills,</span> Make <span>Opportunities</span></p>
-
-        <div class="contact">
-            <!-- phone -->
-            <abbr class="tooltip tooltip--bottom" data-tooltip=" +92 309 60 35 017 ">
-                <a href="tel:+923096035017" target="_blank">
-                    <i class="fa fa-phone"></i>
-                </a>
-            </abbr>
-            <!-- Email -->
-            <abbr class="tooltip tooltip--bottom" data-tooltip=" xexhan17@gmail.com ">
-                <a href="mailto:xexhan17@gmail.com" target="_blank">
-                    <i class="fa fa-envelope-o"></i>
-                </a>
-            </abbr>
-            <!-- Address -->
-            <abbr class="tooltip tooltip--bottom"
-                data-tooltip="H # 76, Sui Gas Colony, Sargodha Road, Faisalabad 38850, Pakistan">
-                <i class="fa fa-home"></i>
-            </abbr>
-            <!-- linkedIn -->
-            <abbr class="tooltip tooltip--bottom" data-tooltip="Muhammad Zeeshan">
-                <a href="https://linkedin.com/in/muhammad-zeeshan-801448144/" target="_blank">
-                    <i class="fa fa-linkedin-square"></i>
-                </a>
-            </abbr>
-            <!-- GitHub -->
-            <abbr class="tooltip tooltip--bottom" data-tooltip="zexhan17">
-                <a href="https://github.com/zexhan17" target="_blank">
-                    <i class="fa fa-github"></i>
-                </a>
-            </abbr>
-            <!-- Fiverr -->
-            <!-- <abbr class="tooltip tooltip--bottom" data-tooltip="zeeshan_xee">
-                <a href="https://www.fiverr.com/zeeshan_xee/do-coding-assignments-tasks-in-any-programming-language" target="_blank">
-                    <i class="fa fa-fonticons"></i>
-                </a>
-            </abbr> -->
-
-        </div>
-    </header>
-
-
-
-    <div class="container">
-        <!-- EDUCATION -->
-        <section>
-
-            <h2> <span>Edu</span>cation</h2>
-
-            <div class="d-flex">
-                <div class="info">
-                    <h4>BS (Hons)</h4>
-                    <p>2019-23</p>
-                </div>
-                <div class="detail">
-                    <h4>Specialized: IT. CGPA: 3.71</h4>
-                    <p>Government College University Faisalabad</p>
-                    <!-- <p>Courses included both Computer Science (programming, databases, networking) and Business
-                        (accounting, management and logic) subjects.</p> -->
+    <div class="space-y-10 p-10 print:p-0">
+        <!-- header -->
+        <section id="header">
+            <h1 class="text-2xl text-slate-600 font-semibold tracking-tight">
+                I'm
+            </h1>
+            <h1 class="text-green-500 text-2xl font-bold tracking-tight">
+                Muhammad Zeeshan
+            </h1>
+            <p class="text-sm">AI‑Augmented Full‑Stack Developer</p>
+            <div class="text-sm space-y-px mt-4">
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-envelope"></i>
+                    contact.muhammad.zeeshan@gmail.com
+                </span>
+                <div class="flex gap-4 items-center">
+                    <a href="tel:+923096035017" title="phone" class="flex items-center gap-2">
+                        <i class="fas fa-phone"></i>
+                        (+92) 309 6035017
+                    </a>
+                    <a href="https://github.com/zexhan17" target="_blank" title="github"
+                        class="flex items-center gap-2">
+                        <i class="fab fa-github"></i>
+                        Github
+                    </a>
+                    <a href="https://www.linkedin.com/in/muhammad-zeeshan-801448144" target="_blank" title="linkedin"
+                        class="flex items-center gap-2">
+                        <i class="fab fa-linkedin"></i>
+                        Linkedin
+                    </a>
+                    <a href="https://portfolio-nu-wine-q8a9w0y4g6.vercel.app/" target="_blank" title="portfolio"
+                        class="flex items-center gap-2">
+                        <i class="fas fa-globe"></i>
+                        Portfolio
+                    </a>
                 </div>
             </div>
-
-            <!-- <div class="d-flex">
-                <div class="info">
-                    <h4>Intermediate</h4>
-                    <p>2019</p>
-                </div>
-                <div class="detail">
-                    <h4>Obtained 629 marks out of 1100</h4>
-                    <p>Punjab Group of colleges</p>
-                    <p>Major: Mathematics, Chemistry, Physics</p>
-                    <p>Minor: Urdu, English, Islamiat, Pakistan Studies</p>
-                </div>
-            </div>
-
-            <div class="d-flex">
-                <div class="info">
-                    <h4>Matric</h4>
-                    <p>2017</p>
-                </div>
-                <div class="detail">
-                    <h4>Obtained 921 marks out of 1100</h4>
-                    <p>Punjab Grammar School</p>
-                    <p>Major: Computer, Mathematics, Chemistry, Physics</p>
-                    <p>Minor: Urdu, English, Islamiat, Pakistan Studies</p>
-                </div>
-            </div> -->
         </section>
-        <!-- EXPERIENCE -->
-        <section>
 
-            <h2> <span>Exp</span>erience</h2>
+        <!-- professional summary -->
+        <section id="professional-summary">
+            <h1 class="text-xl font-semibold text-green-500 mb-2">
+                Professional Summary
+            </h1>
+            <p class="text-sm text-slate-800">
+                AI‑Augmented Full‑Stack Developer with 5+ years of experience
+                building scalable SaaS platforms and modern web applications. I
+                leverage modern AI development tools and large language models to
+                rapidly design, prototype, and ship production‑ready software across
+                the full stack. Experienced in architecting end‑to‑end systems from
+                frontend interfaces to backend APIs and database layers using
+                technologies such as SvelteKit, React, Next.js, NestJS, and ASP.NET
+                Core. I use AI‑assisted workflows for coding, debugging, rapid
+                prototyping, and feature development, enabling fast iteration and
+                the ability to build a wide range of applications including SaaS
+                platforms, automation systems, AI‑powered tools, and Web3 products.
+            </p>
+        </section>
 
-            <div class="d-flex">
-
-                <div class="info">
-                    <h4>Software Engineer</h4>
-                    <p>April 2022 - To-date</p>
-                </div>
-
-                <div class="detail">
-                    <h4>Tech Dart</h4>
-                    <p>Responsibilities:</p>
-                    <ul>
-                        <li>Develop the features laid out in the Sprint.</li>
-                        <li>Update the status of the software project to the Project Manager</li>
-                        <li>Estimate the amount of time needed to deliver a given task.</li>
-                    </ul>
-                    <p>Tech Stack:</p>
-                    <ul>
-                        <li>APS.NET Core</li>
-                        <li>React</li>
-                        <li>Angular</li>
+        <!-- experience -->
+        <section id="experience">
+            <h1 class="text-xl font-semibold text-green-500 mb-2">Experience</h1>
+            <div class="space-y-5">
+                <div class="text-sm">
+                    <p class="text-gray-600">April 2024 - Present</p>
+                    <p>
+                        <b>
+                            <a href="https://app.yalgamers.gg" target="_blank">
+                                YalGamers
+                            </a>
+                            - AI Full Stack Developer,</b>
+                        <i> Remote</i>
+                    </p>
+                    <ul class="list-disc mt-1">
+                        <li class="ml-4 text-slate-800">
+                            Engineered full‑stack Web3 gaming platform using
+                            SvelteKit, React, Next.js and NestJS supporting
+                            thousands of regional users in the MENA market.
+                        </li>
+                        <li class="ml-4 text-slate-800">
+                            Designed scalable REST API architecture and PostgreSQL
+                            data models enabling rapid feature releases and
+                            maintainable backend services.
+                        </li>
+                        <li class="ml-4 text-slate-800">
+                            Reduced feature development time by ~40% by leveraging
+                            AI‑assisted development workflows and rapid prototyping.
+                        </li>
+                        <li class="ml-4 text-slate-800">
+                            Collaborated directly with international clients to
+                            translate product ideas into working SaaS features and
+                            production systems.
+                        </li>
+                        <li class="ml-4 text-slate-800">
+                            Built modular frontend UI systems using Tailwind
+                            enabling faster iteration and consistent design across
+                            the platform.
+                        </li>
+                        <li class="ml-4 text-slate-800">
+                            Managed the full product lifecycle including
+                            development, deployment, debugging and production
+                            optimization.
+                        </li>
                     </ul>
                 </div>
+                <div class="text-sm">
+                    <p class="text-gray-600">April 2022 - April 2024</p>
+                    <p>
+                        <b>
+                            <a href="https://siftowhiz.com/home" target="_blank">
+                                SiftoWhiz
+                            </a>
+                            - Full Stack Developer,</b>
+                        <i> Onsite - Faisalabad, Pakistan</i>
+                    </p>
+                    <ul class="list-disc mt-1">
+                        <li class="ml-4 text-slate-800">
+                            Developed enterprise internal platforms using React,
+                            Angular and ASP.NET Core serving multiple business
+                            clients.
+                        </li>
+                        <li class="ml-4 text-slate-800">
+                            Designed backend APIs and SQL Server data models
+                            powering business workflows and operational dashboards.
+                        </li>
+                        <li class="ml-4 text-slate-800">
+                            Improved application performance and maintainability
+                            through refactoring and optimization of production
+                            systems.
+                        </li>
+                        <li class="ml-4 text-slate-800">
+                            Implemented automated testing and CI‑friendly
+                            development practices improving reliability of releases.
+                        </li>
+                        <li class="ml-4 text-slate-800">
+                            Delivered multiple full‑stack features end‑to‑end
+                            including UI, backend services and database integration.
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
-        <!-- PERSONAL PROJECTS -->
-        <section class="projects">
 
-            <h2> <span>Pro</span>jects</h2>
-
-            <h4>Portfolio website for Blog and Projects showcase</h4>
-            <p>Technologies: GraphCMS, GraphQL, Svelte, SvelteKit, npm, Git, GitHub, Vercel</p>
-
-            <h4>Personal Resume</h4>
-            <p>Technologies: HTML5, CSS, Bootstrap-Icons</p>
-
-
+        <!-- education -->
+        <section id="education">
+            <h1 class="text-xl font-semibold text-green-500 mb-2">Education</h1>
+            <div class="space-y-5">
+                <div class="text-sm">
+                    <p class="text-gray-600">
+                        2019 - 2023, Government College University Faisalabad
+                    </p>
+                    <p>
+                        <b>BS Information Technology</b> -
+                        <i>GPA: 3.71/4.00 (92.75%) </i>
+                    </p>
+                </div>
+            </div>
         </section>
 
+        <!-- projects -->
+        <section id="projects">
+            <h1 class="text-xl font-semibold text-green-500 mb-2">Projects</h1>
+            <ul class="list-disc space-y-1">
+                <li class="ml-4 text-sm">
+                    <p class="flex items-center">
+                        <a href="http://app.yalgamers.gg" target="_blank" class="font-semibold underline">
+                            YalGamers Platform
+                        </a>
+                    </p>
+                    <p class="text-slate-800">
+                        Web3 gaming platform targeting the MENA region built with
+                        scalable architecture using SvelteKit, React and NestJS.
+                        Responsible for full‑stack development, API design, and
+                        system architecture.
+                    </p>
+                </li>
+                <li class="ml-4 text-sm">
+                    <p class="flex items-center">
+                        <a href="https://jamily.app" target="_blank" class="font-semibold underline">
+                            Jamily Event Platform
+                        </a>
+                    </p>
+                    <p class="text-slate-800">
+                        Social event discovery platform allowing users to search
+                        events, invite friends and manage tickets. Implemented
+                        scalable backend APIs and responsive UI using modern
+                        frontend frameworks.
+                    </p>
+                </li>
+                <li class="ml-4 text-sm">
+                    <p class="flex items-center">
+                        <a href="https://crowdfunding-web3-two.vercel.app/" target="_blank"
+                            class="font-semibold underline">
+                            Web3 Crowdfunding Platform
+                        </a>
+                    </p>
+                    <p class="text-slate-800">
+                        Blockchain‑based crowdfunding application with wallet
+                        authentication, smart contract interaction, and secure
+                        backend services.
+                    </p>
+                </li>
+            </ul>
+        </section>
 
+        <!-- skills -->
+        <section id="skills">
+            <h1 class="text-xl font-semibold text-green-500 mb-2">Skills</h1>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    AI‑Assisted Development
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    LLM Integration
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    AI API Integration
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Rapid Prototyping with AI
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Prompt Engineering
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    AI Automation
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    AI‑Powered Tools
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Automation Systems
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Performance Optimization
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Team Collaboration
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Problem Solving
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Project Management
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Software Architecture
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    System Design
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Full‑Stack Development
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Web3 Development
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Blockchain Basics
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Smart Contract Interaction
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Cloud Deployment
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Testing and Debugging
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Code Review
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    JavaScript
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    TypeScript
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    React
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Next.js
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Svelte
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    SvelteKit
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    NestJS
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Node.js
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    ASP.NET Core
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Tailwind CSS
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    PostgreSQL
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    SQL Server
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    Supabase
+                </span>
+                <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">
+                    SaaS Platforms
+                </span>
+            </div>
+        </section>
     </div>
-
 </body>
 
 </html>
