@@ -1,0 +1,353 @@
+%-------------------------
+% Resume in Latex
+% Author : Harshibar
+% Based off of: https://github.com/jakeryang/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[
+  colorlinks=true,
+  urlcolor=blue,
+  linkcolor=blue
+]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+% only for pdflatex
+% \input{glyphtounicode}
+
+% fontawesome
+\usepackage{fontawesome5}
+
+% fixed width
+\usepackage[scale=0.90,lf]{FiraMono}
+
+% light-grey
+\definecolor{light-grey}{gray}{0.83}
+\definecolor{dark-grey}{gray}{0.3}
+\definecolor{text-grey}{gray}{.08}
+
+\DeclareRobustCommand{\ebseries}{\fontseries{eb}\selectfont}
+\DeclareTextFontCommand{\texteb}{\ebseries}
+
+% custom underline
+\usepackage{contour}
+\usepackage[normalem]{ulem}
+\renewcommand{\ULdepth}{1.8pt}
+\contourlength{0.8pt}
+\newcommand{\myuline}[1]{%
+  \uline{\phantom{#1}}%
+  \llap{\contour{white}{#1}}%
+}
+
+% custom font: helvetica-style
+\usepackage{tgheros}
+\renewcommand*\familydefault{\sfdefault}
+%% Only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{0in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% sans serif sections
+\titleformat{\section}{
+    \bfseries \vspace{1pt} \raggedright \large % header section
+}{}{0em}{}[\color{light-grey} {\titlerule[2pt]} \vspace{-4pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-1pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & {\color{dark-grey}\small #2}\vspace{1pt}\\ % top row of resume entry
+      \textit{#3} & {\color{dark-grey} \small #4}\\ % second row of resume entry
+    \end{tabular*}\vspace{-4pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+      #1 & {\color{dark-grey}} \\
+    \end{tabular*}\vspace{-4pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+% CHANGED default leftmargin  0.15 in
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-2pt}}
+
+\color{text-grey}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+\textbf{\Huge Muhammad Zeeshan}
+
+\vspace{4pt}
+
+{\large Full-Stack Software Engineer}
+
+\vspace{6pt}
+
+\small
+
+\faPhone*
+(+92) 309 6035017
+
+\hspace{6pt}|\hspace{6pt}
+
+\faEnvelope
+
+\href{mailto:contact.muhammad.zeeshan@gmail.com}
+{contact.muhammad.zeeshan@gmail.com}
+
+\\
+
+\faGithub
+
+\href{https://github.com/zexhan17}
+{GitHub}
+
+\hspace{6pt}|\hspace{6pt}
+
+\faLinkedin
+
+\href{https://www.linkedin.com/in/muhammad-zeeshan-801448144/}
+{LinkedIn}
+
+\\
+
+\faGlobe
+
+\href{https://portfolio-nu-wine-q8a9w0y4g6.vercel.app/}
+{Portfolio}
+
+\hspace{6pt}|\hspace{6pt}
+
+Faisalabad, Pakistan
+
+\end{center}
+
+%-----------PROFESSIONAL SUMMARY-----------
+\section{PROFESSIONAL SUMMARY}
+
+\small{
+
+Software Engineer with 5+ years of experience building scalable SaaS platforms, enterprise applications and modern web products. Experienced in full-stack development across frontend, backend and database technologies including SvelteKit, React, Next.js, NestJS and ASP.NET Core. Skilled in designing scalable REST APIs, backend architectures and maintainable software while leveraging AI-assisted development workflows to accelerate development, debugging and delivery. Experienced in designing scalable SaaS platforms, AI-powered applications and enterprise systems with a focus on clean architecture, maintainability and rapid product delivery.
+
+}
+
+%-----------EXPERIENCE-----------
+\section{EXPERIENCE}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{YalGamers}{Apr. 2024 -- Jul. 2026}
+{Software Engineer (Remote)}{}
+
+\resumeItemListStart
+
+\resumeItem{Designed and developed a full-stack Web3 gaming platform using SvelteKit, React, Next.js and NestJS, serving users across the MENA region.}
+
+\resumeItem{Designed scalable REST APIs and PostgreSQL data models that simplified feature development and supported future product expansion.}
+
+\resumeItem{Significantly reduced feature delivery time by incorporating AI-assisted development workflows into daily engineering tasks.}
+
+\resumeItem{Collaborated with product managers, designers and engineering teams throughout the complete software development lifecycle, from planning to production deployment.}
+
+\resumeItem{Developed reusable UI components and shared frontend architecture using Tailwind CSS, improving consistency and reducing implementation effort across new features.}
+
+\resumeItem{Built production-ready backend services using NestJS, TypeScript and PostgreSQL, enabling scalable API development and maintainable system architecture.}
+
+\resumeItemListEnd
+
+\resumeSubheading
+{SiftoWhiz}{Apr. 2022 -- Apr. 2024}
+{Full-Stack Software Engineer}{Faisalabad, Pakistan}
+
+\resumeItemListStart
+
+\resumeItem{Developed enterprise web applications using React, Angular and ASP.NET Core for multiple business clients.}
+
+\resumeItem{Designed and implemented REST APIs and SQL Server database solutions supporting business workflows and internal dashboards.}
+
+\resumeItem{Improved application performance and long-term maintainability through refactoring, optimisation and code quality improvements.}
+
+\resumeItem{Implemented testing practices and CI-friendly development workflows, improving release reliability and reducing deployment issues.}
+
+\resumeItem{Delivered complete end-to-end features across frontend, backend and database layers while collaborating with cross-functional teams.}
+
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------
+\section{TECHNICAL SKILLS}
+
+\begin{itemize}[leftmargin=0in,label={}] 
+\small{
+
+\item{
+
+\textbf{Programming Languages}
+: TypeScript, JavaScript, SQL
+\\[4pt]
+
+\textbf{Frontend}
+: SvelteKit, React, Next.js, Angular, Tailwind CSS, HTML5, CSS3
+\\[4pt]
+
+\textbf{Backend}
+: Node.js, NestJS, ASP.NET Core, REST APIs
+\\[4pt]
+
+\textbf{Databases}
+: PostgreSQL, SQL Server, Supabase
+\\[4pt]
+
+\textbf{AI Tools \& Workflow}
+: AI-Assisted Development, LLM Integration, Prompt Engineering, AI Automation
+\\[4pt]
+
+\textbf{Architecture}
+: Software Architecture, System Design, API Design, Performance Optimisation
+\\[4pt]
+
+\textbf{Cloud \& Dev Tools}
+: Git, GitHub, Linux, CI/CD, Debugging, Deployment
+\\[4pt]
+
+\textbf{Additional}
+: Web3 Development, Smart Contract Integration
+
+}
+
+}
+
+\end{itemize}
+
+%-----------PROJECTS-----------
+\section{PROJECTS}
+
+\resumeSubHeadingListStart
+
+\resumeProjectHeading
+{\textbf{YalGamers Platform} $|$ SvelteKit, React, Next.js, NestJS, PostgreSQL}{}
+
+\resumeItemListStart
+
+\resumeItem{Delivered a scalable Web3 gaming platform designed for users across the MENA region with modern frontend and backend architecture.}
+
+\resumeItem{Designed REST APIs, authentication flows and PostgreSQL data models that simplified feature delivery and supported long-term platform growth.}
+
+\resumeItem{Built reusable frontend modules and responsive interfaces that accelerated development across new product features.}
+
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{Jamily Event Platform} $|$ SvelteKit, NestJS, PostgreSQL}{}
+
+\resumeItemListStart
+
+\resumeItem{Created a social event platform that helped users discover events, invite friends and manage participation with a polished experience.}
+
+\resumeItem{Implemented scalable backend services, authentication and responsive interfaces designed for future platform growth.}
+
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{Web3 Crowdfunding Platform} $|$ React, NestJS, Blockchain}{}
+
+\resumeItemListStart
+
+\resumeItem{Shaped a blockchain-based crowdfunding experience with wallet authentication and smart contract integration.}
+
+\resumeItem{Integrated secure backend services with Web3 functionality while maintaining a modern and responsive user experience.}
+
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{Slotly} $|$ React, ASP.NET Core, SQL Server}{}
+
+\resumeItemListStart
+
+\resumeItem{Designed and delivered a slot booking platform supporting scalable scheduling, real-time notifications and responsive user experiences.}
+
+\resumeItem{Improved application reliability and performance through targeted backend enhancements and frontend refinements.}
+
+\resumeItemListEnd
+
+\resumeProjectHeading
+{\textbf{Web3 E-Commerce Platform} $|$ Next.js, NestJS, Blockchain}{}
+
+\resumeItemListStart
+
+\resumeItem{Built a blockchain-enabled commerce experience supporting wallet authentication, secure transactions and modern frontend architecture.}
+
+\resumeItem{Implemented scalable APIs and user-facing flows designed to support a seamless digital commerce experience.}
+
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------
+\section{EDUCATION}
+
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{Government College University Faisalabad}{2019 -- 2023}
+{B.S. Information Technology}{GPA: 3.71/4.00}
+
+\resumeSubHeadingListEnd
+
+%-------------------------------------------
+\end{document}
