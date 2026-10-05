@@ -1,0 +1,157 @@
+{
+  "sections": {
+    "summary": true,
+    "education": true,
+    "experience": true,
+    "projects": true,
+    "skills": true,
+    "internship": false,
+    "organizations": false,
+    "certificates": false,
+    "languages": false
+  },
+  "header": {
+    "name": "Muhammad Zeeshan",
+    "title": "Full-Stack Software Engineer | AI-Assisted Development",
+    "contacts": [
+      {
+        "type": "phone",
+        "icon": "fas fa-phone",
+        "label": "(+92) 309 6035017",
+        "href": "tel:+923096035017"
+      },
+      {
+        "type": "email",
+        "icon": "fas fa-envelope",
+        "label": "contact.muhammad.zeeshan@gmail.com",
+        "href": "mailto:contact.muhammad.zeeshan@gmail.com"
+      },
+      {
+        "type": "github",
+        "icon": "fab fa-github",
+        "label": "zexhan17",
+        "href": "https://github.com/zexhan17"
+      },
+      {
+        "type": "linkedin",
+        "icon": "fab fa-linkedin",
+        "label": "Muhammad Zeeshan",
+        "href": "https://www.linkedin.com/in/muhammad-zeeshan-801448144"
+      },
+      {
+        "type": "portfolio",
+        "icon": "fas fa-globe",
+        "label": "Portfolio",
+        "href": "https://portfolio-nu-wine-q8a9w0y4g6.vercel.app/"
+      },
+      {
+        "type": "location",
+        "icon": "fas fa-location-dot",
+        "label": "Faisalabad, Pakistan"
+      }
+    ]
+  },
+  "summary": "Full-Stack Software Engineer with 4+ years of experience building scalable SaaS platforms, enterprise applications and modern web applications. Experienced across frontend, backend and database development using React, NestJS, PostgreSQL, ASP.NET Core and modern TypeScript ecosystems, with additional experience building applications using SvelteKit and Next.js. Skilled in designing scalable REST APIs, backend architectures and maintainable software while leveraging AI-assisted development workflows to accelerate development, debugging and rapid delivery. Focused on building reliable, production-ready software with clean architecture and excellent user experience.",
+  "education": [
+    {
+      "enabled": true,
+      "degree": "BS Information Technology",
+      "institution": "Government College University Faisalabad",
+      "date": "2019 - 2023",
+      "description": "GPA: 3.71/4.00 (92.75%)"
+    }
+  ],
+  "experience": [
+    {
+      "enabled": true,
+      "role": "Full-Stack Software Engineer",
+      "company": "YalGamers",
+      "url": "https://app.yalgamers.gg",
+      "location": "Remote",
+      "date": "April 2024 - July 2026",
+      "bullets": [
+        "Delivered full-stack features for a Web3 gaming platform serving users across the MENA region using **React**, **NestJS** and **PostgreSQL**.",
+        "Designed REST APIs, PostgreSQL database models and Redis-backed services that simplified feature development and improved backend maintainability.",
+        "Implemented real-time functionality using **Socket.IO**, enabling responsive user interactions and live application updates.",
+        "Accelerated feature delivery by incorporating **AI-assisted development** into implementation, debugging and iterative development workflows.",
+        "Worked directly with international clients to translate business requirements into production-ready software and support multiple successful production releases.",
+        "Contributed across frontend, backend, deployment and production support, helping maintain reliable application performance and continuous product delivery."
+      ]
+    },
+    {
+      "enabled": true,
+      "role": "Full-Stack Software Engineer",
+      "company": "SiftoWhiz",
+      "url": "https://siftowhiz.com/home",
+      "location": "Onsite - Faisalabad, Pakistan",
+      "date": "April 2022 - April 2024",
+      "bullets": [
+        "Delivered enterprise web applications using **React**, **Angular** and **ASP.NET Core** that streamlined internal business operations for multiple clients.",
+        "Designed REST APIs and **SQL Server** database solutions that streamlined business workflows and supported operational dashboards.",
+        "Improved application stability and long-term maintainability through refactoring, performance optimisation and production issue resolution.",
+        "Increased deployment reliability by introducing automated testing and CI-friendly development practices.",
+        "Delivered end-to-end software features from requirements through deployment while collaborating with clients and cross-functional teams."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "enabled": true,
+      "name": "YalGamers Platform",
+      "url": "https://app.yalgamers.gg",
+      "bullets": [
+        "Built and maintained a scalable Web3 gaming platform for the MENA region using **React**, **Nest.js** and **PostgreSQL**. Designed REST APIs, PostgreSQL data models and reusable frontend components to support scalable application development."
+      ]
+    },
+    {
+      "enabled": true,
+      "name": "Jamily Event Platform",
+      "url": "https://jamily.app",
+      "bullets": [
+        "Developed a social event platform enabling users to discover events, invite friends and manage event participation. Built scalable backend APIs and responsive user interfaces using modern frontend and backend technologies."
+      ]
+    },
+    {
+      "enabled": true,
+      "name": "Web3 Crowdfunding Platform",
+      "url": "https://crowdfunding-web3-two.vercel.app/",
+      "bullets": [
+        "Developed a blockchain-based crowdfunding platform with wallet authentication, smart contract integration and secure backend services for managing fundraising campaigns."
+      ]
+    },
+    {
+      "enabled": true,
+      "name": "Slotly",
+      "url": "https://slotly-blush.vercel.app/",
+      "bullets": [
+        "Designed and delivered a slot booking platform featuring scalable backend services, real-time notifications and responsive user interfaces focused on performance and reliability."
+      ]
+    },
+    {
+      "enabled": true,
+      "name": "Web3 E-Commerce Platform",
+      "url": "https://web3-e-commerce-lac.vercel.app/",
+      "bullets": [
+        "Developed a blockchain-enabled e-commerce platform with wallet authentication, smart contract integration and secure backend services for digital commerce workflows."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": ["TypeScript", "JavaScript", "SQL"]
+    },
+    {
+      "category": "Frontend",
+      "items": ["React", "Next.js", "SvelteKit", "Angular", "Tailwind CSS"]
+    },
+    {
+      "category": "Backend",
+      "items": ["Node.js", "NestJS", "ASP.NET Core", "REST APIs", "Socket.IO", "PostgreSQL", "SQL Server", "Redis", "Supabase"]
+    },
+    {
+      "category": "AI & Tools",
+      "items": ["AI-Assisted Development", "LLM Integration", "Prompt Engineering", "Software Architecture", "System Design", "Git", "Linux"]
+    }
+  ]
+}

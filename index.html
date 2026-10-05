@@ -1,351 +1,1524 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Zeeshan - Resume</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Resume</title>
+    
+    <!-- Google Fonts: Lora (Regular, Italic, Bold) matching test.pdf -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Optional Font Awesome for custom icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
+        /* ==========================================================================
+           Typography, Colors & Metrics Matching test.pdf (react-pdf)
+           - Primary text: #0a0a0a (neutral-950)
+           - Secondary text: #525252 (neutral-600)
+           - Line/border: #a3a3a3 (neutral-400)
+           - Font: Lora, serif (400, 400 italic, 700 bold)
+           - Margins: 44pt top/bottom, 48pt left/right (A4 width 595.28pt, content 499.28pt)
+           ========================================================================== */
+
+        :root {
+            --color-primary: #0a0a0a;
+            --color-secondary: #525252;
+            --color-rule: #a3a3a3;
+            --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+            --page-width: 595.28pt; /* A4: 210mm */
+            --page-padding-x: 48pt;
+            --page-padding-y: 44pt;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            background-color: #2c2c2c; /* Screen viewer background matching screenshots */
+            color: var(--color-primary);
+            margin: 0;
+            padding: 24px 0 48px 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Screen toolbar */
+        .toolbar {
+            max-width: var(--page-width);
+            margin: 0 auto 16px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 0 4px;
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 12px;
+            color: #d4d4d4;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            user-select: none;
+        }
+
+        .status-badge .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: #22c55e;
+            display: inline-block;
+        }
+
+        .toolbar button, .toolbar label.btn {
+            background-color: #ffffff;
+            color: #171717;
+            border: 1px solid #d4d4d4;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            user-select: none;
+            text-decoration: none;
+        }
+
+        .toolbar button:hover, .toolbar label.btn:hover {
+            background-color: #f5f5f5;
+            border-color: #a3a3a3;
+        }
+
+        .toolbar button.active {
+            background-color: #2563eb;
+            color: #ffffff;
+            border-color: #1d4ed8;
+        }
+
+        /* Resume Sheets Container on Screen */
+        #resume-root {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .resume-sheet-wrapper {
+            width: var(--page-width);
+            margin: 0 auto 28px auto;
+            position: relative;
+        }
+
+        .resume-sheet-wrapper:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Screen Page Indicator */
+        .page-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4px 8px 4px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            color: #a3a3a3;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            user-select: none;
+        }
+
+        .page-indicator span.badge {
+            background-color: rgba(255, 255, 255, 0.08);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #d4d4d4;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Page Container (A4 sheet) */
+        .resume-page {
+            width: var(--page-width);
+            min-height: 841.89pt; /* A4 height: 297mm */
+            margin: 0 auto;
+            background: #ffffff;
+            padding: var(--page-padding-y) var(--page-padding-x);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            position: relative;
+            border-radius: 2px;
+            box-sizing: border-box;
+        }
+
+        .resume-page > .resume-section:first-child .section-header {
+            margin-top: 0;
+        }
+
+        /* Header (Semantic Schema.org Person for ATS optimization) */
+        .resume-header {
+            text-align: center;
+            margin-bottom: 26pt;
+        }
+
+        .header-name {
+            font-size: 21pt;
+            font-weight: 400;
+            color: var(--color-primary);
+            line-height: 1.2;
+            margin-bottom: 3.5pt;
+            letter-spacing: -0.2px;
+        }
+
+        .header-title {
+            font-size: 10pt;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--color-secondary);
+            line-height: 1.35;
+            margin-bottom: 7pt;
+        }
+
+        .header-contacts {
+            font-size: 9pt;
+            font-weight: 400;
+            color: var(--color-secondary);
+            line-height: 1.5;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            row-gap: 4pt;
+        }
+
+        .contact-item {
+            display: inline-flex;
+            align-items: center;
+            color: var(--color-secondary);
+            white-space: nowrap;
+        }
+
+        .contact-item:not(:last-child)::after {
+            content: "·";
+            margin: 0 6pt;
+            color: var(--color-secondary);
+            font-weight: 400;
+            user-select: none;
+        }
+
+        .contact-item a {
+            color: var(--color-secondary);
+            text-decoration: underline;
+            text-decoration-thickness: 0.5px;
+            text-underline-offset: 2.5px;
+            transition: opacity 0.15s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .contact-item a:hover {
+            opacity: 0.8;
+        }
+
+        .contact-icon {
+            width: 9.5pt;
+            height: 9.5pt;
+            color: var(--color-secondary);
+            fill: currentColor;
+            margin-right: 4pt;
+            vertical-align: -1px;
+            display: inline-block;
+            flex-shrink: 0;
+            text-decoration: none !important;
+        }
+
+        /* Section Headers */
+        .resume-section {
+            margin-bottom: 0;
+            page-break-inside: auto;
+            break-inside: auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-top: 28pt;
+            margin-bottom: 11pt;
+            page-break-after: avoid !important;
+            break-after: avoid-page !important;
+        }
+
+        .resume-section:first-of-type .section-header {
+            margin-top: 0;
+        }
+
+        /* Reduced space before Experience section after Education */
+        #experience-section .section-header {
+            margin-top: 14pt;
+        }
+
+        .section-title {
+            font-size: 10.5pt;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 5.5pt;
+            line-height: 1.2;
+        }
+
+        .section-rule {
+            border: none;
+            border-top: 0.5pt solid var(--color-rule);
+            width: 100%;
+            margin: 0;
+        }
+
+        /* Prevent orphan section headers by pairing header with first entry */
+        .section-lead-group {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+
+        /* Summary */
+        .summary-text {
+            font-size: 9pt;
+            line-height: 1.5;
+            color: var(--color-primary);
+            text-align: left;
+        }
+
+        .summary-text b, .summary-text strong {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .summary-text i, .summary-text em {
+            font-style: italic;
+        }
+
+        /* Experience / Education / Project Items */
+        .entry {
+            margin-bottom: 19.5pt;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .entry.is-last {
+            margin-bottom: 0;
+        }
+
+        /* Project Items - reduced spacing between projects */
+        #projects-section .entry,
+        .project-entry {
+            margin-bottom: 13.5pt;
+        }
+
+        #projects-section .entry.is-last,
+        .project-entry.is-last {
+            margin-bottom: 0;
+        }
+
+        .entry-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            line-height: 1.35;
+        }
+
+        .entry-role,
+        .entry-project-name,
+        .entry-degree {
+            font-size: 9.5pt;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin: 0;
+        }
+
+        .entry-project-name a {
+            color: var(--color-primary);
+            text-decoration: underline;
+            text-decoration-thickness: 0.5px;
+            text-underline-offset: 2.5px;
+        }
+
+        .entry-date {
+            font-size: 9pt;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--color-secondary);
+            text-align: right;
+            white-space: nowrap;
+            margin-left: 12pt;
+        }
+
+        .entry-sub-row {
+            font-size: 9pt;
+            font-weight: 400;
+            color: var(--color-secondary);
+            line-height: 1.35;
+            margin-top: 1.5pt;
+        }
+
+        .entry-sub-row a {
+            color: var(--color-secondary);
+            text-decoration: underline;
+            text-decoration-thickness: 0.5px;
+            text-underline-offset: 2.5px;
+        }
+
+        .entry-paragraph {
+            font-size: 9pt;
+            line-height: 1.48;
+            color: var(--color-primary);
+            margin-top: 4.5pt;
+        }
+
+        .entry-paragraph b, .entry-paragraph strong {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* Bullet Points matching test.pdf exactly (ATS semantic ul/li) */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 5pt 0 0 0;
+        }
+
+        .bullet-item {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 3.5pt;
+            font-size: 9pt;
+            line-height: 1.48;
+            color: var(--color-primary);
+        }
+
+        .bullet-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .bullet-marker {
+            width: 12pt;
+            flex-shrink: 0;
+            color: var(--color-primary);
+            font-weight: 400;
+        }
+
+        .bullet-text {
+            flex: 1;
+        }
+
+        .bullet-text b, .bullet-text strong {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .bullet-text a {
+            color: var(--color-primary);
+            text-decoration: underline;
+            text-decoration-thickness: 0.5px;
+            text-underline-offset: 2.5px;
+        }
+
+        /* Categorized Skills Section */
+        .skills-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 5.5pt;
+        }
+
+        .skill-cat-row {
+            font-size: 9pt;
+            line-height: 1.48;
+            color: var(--color-primary);
+        }
+
+        .skill-cat-label {
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-right: 5pt;
+        }
+
+        .skill-cat-values {
+            color: var(--color-primary);
+            font-weight: 400;
+        }
+
+        /* Certificates matching test.pdf */
+        .cert-item {
+            margin-bottom: 17.5pt;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        .cert-item.is-last {
+            margin-bottom: 0;
+        }
+
+        .cert-name {
+            font-size: 9.5pt;
+            font-weight: 700;
+            color: var(--color-primary);
+            line-height: 1.35;
+        }
+
+        .cert-name a {
+            color: var(--color-primary);
+            text-decoration: underline;
+            text-decoration-thickness: 0.5px;
+            text-underline-offset: 2.5px;
+        }
+
+        .cert-issuer {
+            font-size: 9pt;
+            color: var(--color-secondary);
+            line-height: 1.35;
+            margin-top: 1.5pt;
+        }
+
+        /* Languages 2-Column Grid matching test.pdf */
+        .languages-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 28pt;
+            row-gap: 5.5pt;
+        }
+
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 9pt;
+            line-height: 1.48;
+        }
+
+        .language-name {
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .language-level {
+            font-weight: 400;
+            color: var(--color-secondary);
+            text-align: right;
+        }
+
+        /* Print-friendly link display rules */
+        .print-only-text,
+        .print-url {
+            display: none;
+        }
+
+        /* Live preview of print-friendly URLs on screen */
+        body.preview-print-links .screen-only-text {
+            display: none !important;
+        }
+
+        body.preview-print-links .print-only-text {
+            display: inline !important;
+        }
+
+        body.preview-print-links .print-url {
+            display: inline !important;
+            font-weight: 400;
+            font-size: 8.5pt;
+            color: var(--color-secondary);
+            text-decoration: none !important;
+        }
+
+        /* Print styles */
         @media print {
-            section {
-                page-break-inside: avoid;
+            @page {
+                size: A4 portrait;
+                margin: 44pt 48pt;
+            }
+
+            body {
+                background: #ffffff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .toolbar,
+            .page-indicator,
+            .fallback-container {
+                display: none !important;
+            }
+
+            #resume-root {
+                display: block !important;
+                width: 100% !important;
+            }
+
+            .resume-sheet-wrapper {
+                margin: 0 !important;
+                padding: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                page-break-after: always;
+                break-after: page;
+            }
+
+            .resume-sheet-wrapper:last-child {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+
+            .resume-page {
+                box-shadow: none !important;
+                margin: 0 !important;
+                width: 100% !important;
+                min-height: auto !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
+            }
+
+            .resume-page > .resume-section:first-child .section-header {
+                margin-top: 0 !important;
+            }
+
+            /* Show print-friendly URLs in printed document */
+            .screen-only-text {
+                display: none !important;
+            }
+
+            .print-only-text {
+                display: inline !important;
+            }
+
+            .print-url {
+                display: inline !important;
+                font-weight: 400;
+                font-size: 8.5pt;
+                color: var(--color-secondary);
+                text-decoration: none !important;
+            }
+
+            a {
+                color: inherit !important;
+                text-decoration: underline !important;
+            }
+
+            a[href]::after {
+                content: "" !important;
+            }
+        }
+
+        /* Responsive scaling on small mobile screens */
+        @media screen and (max-width: 820px) {
+            body {
+                padding: 8px;
+                background-color: #f3f4f6;
+            }
+
+            .toolbar {
+                width: 100%;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .toolbar-group {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .resume-sheet-wrapper {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .page-indicator {
+                color: #525252;
+            }
+
+            .page-indicator span.badge {
+                background-color: #e5e7eb;
+                color: #374151;
+            }
+
+            .resume-page {
+                width: 100%;
+                min-height: auto;
+                padding: 24px 18px;
+            }
+
+            .languages-grid {
+                grid-template-columns: 1fr;
+                gap: 6px;
             }
         }
     </style>
 </head>
-
 <body>
-    <div class="space-y-5 p-10 print:p-0">
-        <!-- header -->
-        <section id="header">
-            <h1 class="text-2xl font-semibold tracking-tight">
-                I'm
-            </h1>
-            <h1 class=" text-2xl font-bold tracking-tight">
-                Muhammad Zeeshan
-            </h1>
-            <p class="text-sm mb-4">Full-Stack Software Engineer | AI-Assisted Development</p>
 
-            <div class="flex items-center text-sm gap-10">
-                <a href="mailto:contact.muhammad.zeeshan@gmail.com" title="email" class="flex items-center gap-2">
-                    <i class="fas fa-envelope"></i>
-                    contact.muhammad.zeeshan@gmail.com
-                </a>
-            </div>
-            <div class="flex items-center text-sm gap-10">
-                <a href="tel:+923096035017" title="phone" class="flex items-center gap-2">
-                    <i class="fas fa-phone"></i>
-                    (+92) 309 6035017
-                </a>
-                <a href="https://github.com/zexhan17" target="_blank" title="zeeshan github"
-                    class="flex items-center gap-2">
-                    <i class="fab fa-github"></i>
-                    zexhan17
-                </a>
-                <a href="https://www.linkedin.com/in/muhammad-zeeshan-801448144" target="_blank"
-                    title="muhammad zeeshan linkedin" class="flex items-center gap-2">
-                    <i class="fab fa-linkedin"></i>
-                    Muhammad Zeeshan
-                </a>
-                <a href="https://portfolio-nu-wine-q8a9w0y4g6.vercel.app/" target="_blank" title="zeeshan portfolio"
-                    class="flex items-center gap-2">
-                    <i class="fas fa-globe"></i>
-                    Portfolio
-                </a>
-            </div>
-
-        </section>
-
-        <!-- professional summary -->
-        <section id="professional-summary">
-            <h1 class="text-xl font-semibold mb-2" title="Professional Summary">
-                Professional Summary
-            </h1>
-            <p class="text-sm text-slate-800">
-                Full-Stack Software Engineer with 4+ years of experience building scalable SaaS platforms, enterprise
-                applications and modern web applications. Experienced across frontend, backend and database development
-                using React, NestJS, PostgreSQL, ASP.NET Core and modern TypeScript ecosystems, with additional
-                experience building applications using SvelteKit and Next.js. Skilled in designing scalable REST APIs,
-                backend architectures and maintainable software while leveraging AI-assisted development workflows to
-                accelerate development, debugging and rapid delivery. Focused on building reliable, production-ready
-                software with clean architecture and excellent user experience.
-            </p>
-        </section>
-
-        <!-- education -->
-        <section id="education">
-            <h1 class="text-xl font-semibold mb-2" title="Education">
-                Education
-            </h1>
-            <div class="space-y-5">
-                <div class="text-sm">
-                    <p class="text-gray-600">
-                        Government College University Faisalabad, 2019 - 2023
-                    </p>
-                    <p>
-                        <b>BS Information Technology</b> -
-                        GPA: <i>3.71/4.00 (92.75%) </i>
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- experience -->
-        <section id="experience">
-            <h1 class="text-xl font-semibold mb-2" title="Experience">
-                Experience
-            </h1>
-
-            <div class="space-y-5">
-
-                <!-- YalGamers -->
-                <div class="text-sm">
-                    <p class="text-gray-600">April 2024 - July 2026</p>
-
-                    <p>
-                        <b>
-                            <a href="https://app.yalgamers.gg" target="_blank">
-                                YalGamers
-                            </a>
-                            - Full-Stack Software Engineer,
-                        </b>
-                        <i>Remote</i>
-                    </p>
-
-                    <ul class="list-disc mt-1">
-                        <li class="ml-4 text-slate-800">
-                            Delivered full-stack features for a Web3 gaming platform serving
-                            users across the MENA region using React, NestJS and PostgreSQL.
-                        </li>
-
-                        <li class="ml-4 text-slate-800">
-                            Designed REST APIs, PostgreSQL database models and Redis-backed
-                            services that simplified feature development and improved backend
-                            maintainability.
-                        </li>
-
-                        <li class="ml-4 text-slate-800">
-                            Implemented real-time functionality using Socket.IO, enabling
-                            responsive user interactions and live application updates.
-                        </li>
-
-                        <li class="ml-4 text-slate-800">
-                            Accelerated feature delivery by incorporating AI-assisted development into implementation,
-                            debugging and iterative development workflows.
-                        </li>
-
-                        <li class="ml-4 text-slate-800">
-                            Worked directly with international clients to translate business
-                            requirements into production-ready software and support multiple
-                            successful production releases.
-                        </li>
-
-                        <li class="ml-4 text-slate-800">
-                            Contributed across frontend, backend, deployment and production
-                            support, helping maintain reliable application performance and
-                            continuous product delivery.
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- SiftoWhiz -->
-                <div class="text-sm">
-                    <p class="text-gray-600">April 2022 - April 2024</p>
-
-                    <p>
-                        <b>
-                            <a href="https://siftowhiz.com/home" target="_blank">
-                                SiftoWhiz
-                            </a>
-                            - Full-Stack Software Engineer,
-                        </b>
-                        <i>Onsite - Faisalabad, Pakistan</i>
-                    </p>
-
-                    <ul class="list-disc mt-1">
-                        <li class="ml-4 text-slate-800">
-                            Delivered enterprise web applications using React, Angular and
-                            ASP.NET Core that streamlined internal business operations for
-                            multiple clients.
-                        </li>
-
-                        <li class="ml-4 text-slate-800">
-                            Designed REST APIs and SQL Server database solutions that
-                            streamlined business workflows and supported operational
-                            dashboards.
-                        </li>
-
-                        <li class="ml-4 text-slate-800">
-                            Improved application stability and long-term maintainability
-                            through refactoring, performance optimisation and production
-                            issue resolution.
-                        </li>
-
-                        <li class="ml-4 text-slate-800">
-                            Increased deployment reliability by introducing automated
-                            testing and CI-friendly development practices.
-                        </li>
-
-                        <li class="ml-4 text-slate-800">
-                            Delivered end-to-end software features from requirements through
-                            deployment while collaborating with clients and cross-functional
-                            teams.
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- projects -->
-        <section id="projects">
-            <h1 class="text-xl font-semibold mb-2" title="Projects">
-                Projects
-            </h1>
-
-            <ul class="list-disc space-y-2">
-
-                <li class="ml-4 text-sm">
-                    <p>
-                        <a href="https://app.yalgamers.gg" target="_blank" class="font-semibold underline">
-                            YalGamers Platform
-                        </a>
-                    </p>
-                    <p class="text-slate-800">
-                        Built and maintained a scalable Web3 gaming platform for the MENA
-                        region using React, Nest.js and PostgreSQL. Designed REST
-                        APIs, PostgreSQL data models and reusable frontend components to
-                        support scalable application development.
-                    </p>
-                </li>
-
-                <li class="ml-4 text-sm">
-                    <p>
-                        <a href="https://jamily.app" target="_blank" class="font-semibold underline">
-                            Jamily Event Platform
-                        </a>
-                    </p>
-                    <p class="text-slate-800">
-                        Developed a social event platform enabling users to discover events,
-                        invite friends and manage event participation. Built scalable backend
-                        APIs and responsive user interfaces using modern frontend and backend
-                        technologies.
-                    </p>
-                </li>
-
-                <li class="ml-4 text-sm">
-                    <p>
-                        <a href="https://crowdfunding-web3-two.vercel.app/" target="_blank"
-                            class="font-semibold underline">
-                            Web3 Crowdfunding Platform
-                        </a>
-                    </p>
-                    <p class="text-slate-800">
-                        Developed a blockchain-based crowdfunding platform with wallet
-                        authentication, smart contract integration and secure backend
-                        services for managing fundraising campaigns.
-                    </p>
-                </li>
-
-                <li class="ml-4 text-sm">
-                    <p>
-                        <a href="https://slotly-blush.vercel.app/" target="_blank" class="font-semibold underline">
-                            Slotly
-                        </a>
-                    </p>
-                    <p class="text-slate-800">
-                        Designed and delivered a slot booking platform featuring scalable
-                        backend services, real-time notifications and responsive user
-                        interfaces focused on performance and reliability.
-                    </p>
-                </li>
-
-                <li class="ml-4 text-sm">
-                    <p>
-                        <a href="https://web3-e-commerce-lac.vercel.app/" target="_blank"
-                            class="font-semibold underline">
-                            Web3 E-Commerce Platform
-                        </a>
-                    </p>
-                    <p class="text-slate-800">
-                        Developed a blockchain-enabled e-commerce platform with wallet
-                        authentication, smart contract integration and secure backend
-                        services for digital commerce workflows.
-                    </p>
-                </li>
-
-            </ul>
-        </section>
-
-        <!-- skills -->
-        <section id="skills">
-            <h1 class="text-xl font-semibold mb-2" title="Technical Skills">
-                Technical Skills
-            </h1>
-
-            <div class="space-y-3 text-sm">
-
-                <div>
-                    <span class="font-semibold text-slate-700">Languages:</span>
-                    <div class="flex flex-wrap gap-2 mt-1">
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">TypeScript</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">JavaScript</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">SQL</span>
-                    </div>
-                </div>
-
-                <div>
-                    <span class="font-semibold text-slate-700">Frontend:</span>
-                    <div class="flex flex-wrap gap-2 mt-1">
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">React</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Next.js</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">SvelteKit</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Angular</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Tailwind CSS</span>
-                    </div>
-                </div>
-
-                <div>
-                    <span class="font-semibold text-slate-700">Backend:</span>
-                    <div class="flex flex-wrap gap-2 mt-1">
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Node.js</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">NestJS</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">ASP.NET Core</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">REST APIs</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Socket.IO</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">PostgreSQL</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">SQL Server</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Redis</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Supabase</span>
-                    </div>
-                </div>
-
-                <div>
-                    <span class="font-semibold text-slate-700">AI & Tools:</span>
-                    <div class="flex flex-wrap gap-2 mt-1">
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">AI-Assisted
-                            Development</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">LLM Integration</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Prompt Engineering</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Software Architecture</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">System Design</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Git</span>
-                        <span class="bg-gray-200 text-gray-800 px-2 py-0.5 rounded text-xs">Linux</span>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Print Button -->
-        <div class="text-center mt-10 print:hidden">
-            <button onclick="window.print()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                Print Resume
+    <!-- Toolbar (screen only) -->
+    <div class="toolbar" id="toolbar">
+        <div class="toolbar-group">
+            <span class="status-badge" id="sourceBadge">
+                <span class="dot"></span>
+                <span id="sourceBadgeText">Loading...</span>
+            </span>
+        </div>
+        <div class="toolbar-group">
+            <button id="togglePrintLinksBtn" onclick="togglePrintLinksPreview()" title="Preview how URLs will look when printed or saved as PDF">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+                Preview Print URLs
+            </button>
+            <label class="btn" title="Load custom resume JSON file">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                Load JSON
+                <input type="file" id="jsonFileInput" accept=".json,application/json" style="display: none;" onchange="handleFileSelect(event)">
+            </label>
+            <button onclick="window.print()" title="Print or save as PDF">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                Print / Save PDF
             </button>
         </div>
     </div>
-</body>
 
+    <!-- Main Resume Sheets Container -->
+    <main id="resume-root">
+        <!-- Rendered dynamically as multi-page sheets -->
+    </main>
+
+    <script>
+        /**
+         * Standalone Inline SVG Icons (100% reliable offline & in all PDF renderers)
+         */
+        const SVG_ICONS = {
+            phone: `<svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.72 11.72 0 003.68.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.68 1 1 0 01-.24 1.02l-2.23 2.09z"/></svg>`,
+            email: `<svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>`,
+            github: `<svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>`,
+            linkedin: `<svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 0 0-1.6 1.6 1.6 1.6 0 0 0 1.6 1.6 1.6 1.6 0 0 0 1.6-1.6 1.6 1.6 0 0 0-1.6-1.6z"/></svg>`,
+            portfolio: `<svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>`,
+            location: `<svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>`
+        };
+
+        /**
+         * Helper to parse markdown formatting:
+         * **bold** -> <b>bold</b>
+         * *italic* -> <i>italic</i>
+         * [text](url) -> <a href="url">text</a>
+         */
+        function formatMarkdown(text) {
+            if (!text) return '';
+            return text
+                .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+                .replace(/\*([^*]+?)\*/g, '<i>$1</i>')
+                .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+        }
+
+        /**
+         * Helper to resolve icons for contact items (Inline SVG with FontAwesome class fallback)
+         */
+        function renderContactIcon(contact) {
+            const type = (contact.type || '').toLowerCase();
+            if (SVG_ICONS[type]) {
+                return SVG_ICONS[type];
+            }
+            if (contact.icon) {
+                return `<i class="${contact.icon} contact-icon" aria-hidden="true"></i>`;
+            }
+            return '';
+        }
+
+        /**
+         * Helper to resolve Schema.org itemprop for contact types (ATS optimization)
+         */
+        function getContactItemProp(contact) {
+            const type = (contact.type || '').toLowerCase();
+            switch (type) {
+                case 'phone':
+                case 'tel':
+                    return 'telephone';
+                case 'email':
+                case 'mail':
+                    return 'email';
+                case 'github':
+                case 'linkedin':
+                    return 'sameAs';
+                case 'portfolio':
+                case 'website':
+                    return 'url';
+                default:
+                    return '';
+            }
+        }
+
+        /**
+         * Render Section Header with uppercase title and horizontal rule
+         */
+        function renderSectionHeader(title) {
+            return `
+                <div class="section-header">
+                    <h2 class="section-title">${title}</h2>
+                    <hr class="section-rule" />
+                </div>
+            `;
+        }
+
+        /**
+         * Helper to clean up URLs for human-readable print display:
+         * e.g. https://portfolio-nu-wine.vercel.app/ -> portfolio-nu-wine.vercel.app
+         */
+        function getCleanDisplayUrl(url) {
+            if (!url) return '';
+            try {
+                let clean = url.trim();
+                clean = clean.replace(/^https?:\/\//i, '');
+                clean = clean.replace(/^www\./i, '');
+                clean = clean.replace(/\/$/, '');
+                return clean;
+            } catch (e) {
+                return url;
+            }
+        }
+
+        /**
+         * Render Header (Name, Subtitle, Contact line with icons)
+         * Incorporates Schema.org Person microdata for ATS bots and print-friendly URLs
+         */
+        function renderHeader(header) {
+            if (!header) return '';
+
+            const contactsHtml = (header.contacts || []).map(contact => {
+                if (typeof contact === 'string') {
+                    return `<span class="contact-item">${contact}</span>`;
+                }
+                const label = contact.label || contact.value || contact.text || '';
+                const href = contact.href || contact.url;
+                const iconHtml = renderContactIcon(contact);
+                const itemprop = getContactItemProp(contact);
+                const itempropAttr = itemprop ? `itemprop="${itemprop}"` : '';
+
+                if (href) {
+                    const cleanUrl = getCleanDisplayUrl(href);
+                    const isDifferent = cleanUrl && label.toLowerCase() !== cleanUrl.toLowerCase() && !href.startsWith('tel:') && !href.startsWith('mailto:');
+
+                    return `
+                        <span class="contact-item">
+                            <a href="${href}" target="_blank" rel="noopener noreferrer" ${itempropAttr}>
+                                ${iconHtml}<span class="${isDifferent ? 'screen-only-text' : ''}">${label}</span>${isDifferent ? `<span class="print-only-text">${cleanUrl}</span>` : ''}
+                            </a>
+                        </span>
+                    `;
+                }
+
+                if (contact.type === 'location') {
+                    return `
+                        <span class="contact-item" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                            ${iconHtml}<span itemprop="addressLocality">${label}</span>
+                        </span>
+                    `;
+                }
+
+                return `
+                    <span class="contact-item">
+                        ${iconHtml}<span>${label}</span>
+                    </span>
+                `;
+            }).join('');
+
+            return `
+                <header class="resume-header" itemscope itemtype="https://schema.org/Person">
+                    <h1 class="header-name" itemprop="name">${header.name || ''}</h1>
+                    ${header.title ? `<div class="header-title" itemprop="jobTitle">${header.title}</div>` : ''}
+                    <div class="header-contacts">
+                        ${contactsHtml}
+                    </div>
+                </header>
+            `;
+        }
+
+        /**
+         * Render Summary Section
+         */
+        function renderSummary(summary) {
+            if (!summary) return '';
+            return `
+                <section class="resume-section section-lead-group" id="summary-section" aria-labelledby="summary-title">
+                    ${renderSectionHeader('SUMMARY')}
+                    <p class="summary-text">${formatMarkdown(summary)}</p>
+                </section>
+            `;
+        }
+
+        /**
+         * Render Bullets list (Semantic ul/li for ATS parser compatibility)
+         */
+        function renderBullets(bullets) {
+            if (!bullets || !bullets.length) return '';
+            return `
+                <ul class="bullet-list">
+                    ${bullets.map(b => `
+                        <li class="bullet-item">
+                            <span class="bullet-marker" aria-hidden="true">•</span>
+                            <span class="bullet-text">${formatMarkdown(b)}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+        }
+
+        /**
+         * Render Education Section
+         * Placed immediately after SUMMARY and before EXPERIENCE
+         */
+        function renderEducation(education) {
+            if (!education || !education.length) return '';
+
+            const activeItems = education.filter(item => item.enabled !== false && item.show !== false && item.visible !== false);
+            if (!activeItems.length) return '';
+
+            const renderedItems = activeItems.map((edu, index) => {
+                const isLast = (index === activeItems.length - 1);
+                const degree = edu.degree || edu.program || edu.title || '';
+                const date = edu.date || edu.dates || edu.period || '';
+                const institution = edu.institution || edu.school || edu.university || '';
+                const location = edu.location || '';
+                const description = edu.description || edu.details || '';
+
+                let subRow = '';
+                if (institution || location) {
+                    const locText = location ? (institution ? `, ${location}` : location) : '';
+                    subRow = `<div class="entry-sub-row">${institution}${locText}</div>`;
+                }
+
+                return `
+                    <article class="entry${isLast ? ' is-last' : ''}">
+                        <div class="entry-top-row">
+                            <h3 class="entry-degree">${degree}</h3>
+                            ${date ? `<span class="entry-date">${date}</span>` : ''}
+                        </div>
+                        ${subRow}
+                        ${description ? `<p class="entry-paragraph">${formatMarkdown(description)}</p>` : ''}
+                        ${renderBullets(edu.bullets)}
+                    </article>
+                `;
+            });
+
+            const firstItem = renderedItems[0] || '';
+            const otherItems = renderedItems.slice(1).join('');
+
+            return `
+                <section class="resume-section" id="education-section" aria-labelledby="education-title">
+                    <div class="section-lead-group">
+                        ${renderSectionHeader('EDUCATION')}
+                        ${firstItem}
+                    </div>
+                    ${otherItems ? `<div class="entries-list">${otherItems}</div>` : ''}
+                </section>
+            `;
+        }
+
+        /**
+         * Render Experience / Internship / Organization Section
+         */
+        function renderEntrySection(sectionId, sectionTitle, entries) {
+            if (!entries || !entries.length) return '';
+
+            const activeItems = entries.filter(item => item.enabled !== false && item.show !== false && item.visible !== false);
+            if (!activeItems.length) return '';
+
+            const renderedItems = activeItems.map((item, index) => {
+                const isLast = (index === activeItems.length - 1);
+                const role = item.role || item.title || item.position || '';
+                const date = item.date || item.dates || item.period || '';
+                const companyName = item.company || item.organization || item.institution || '';
+                const companyUrl = item.url || item.link;
+                const location = item.location || '';
+
+                let subRow = '';
+                if (companyName || location) {
+                    const cleanCompanyUrl = companyUrl ? getCleanDisplayUrl(companyUrl) : '';
+                    const companyHtml = companyUrl 
+                        ? `<a href="${companyUrl}" target="_blank" rel="noopener noreferrer">${companyName}</a><span class="print-url"> (${cleanCompanyUrl})</span>`
+                        : companyName;
+                    const locationText = location ? (companyName ? `, ${location}` : location) : '';
+                    subRow = `<div class="entry-sub-row">${companyHtml}${locationText}</div>`;
+                }
+
+                const bulletsHtml = renderBullets(item.bullets || item.highlights);
+                const paragraphHtml = item.description 
+                    ? `<p class="entry-paragraph">${formatMarkdown(item.description)}</p>` 
+                    : '';
+
+                return `
+                    <article class="entry${isLast ? ' is-last' : ''}">
+                        <div class="entry-top-row">
+                            <h3 class="entry-role">${role}</h3>
+                            ${date ? `<span class="entry-date">${date}</span>` : ''}
+                        </div>
+                        ${subRow}
+                        ${paragraphHtml}
+                        ${bulletsHtml}
+                    </article>
+                `;
+            });
+
+            const firstItem = renderedItems[0] || '';
+            const otherItems = renderedItems.slice(1).join('');
+
+            return `
+                <section class="resume-section" id="${sectionId}">
+                    <div class="section-lead-group">
+                        ${renderSectionHeader(sectionTitle)}
+                        ${firstItem}
+                    </div>
+                    ${otherItems ? `<div class="entries-list">${otherItems}</div>` : ''}
+                </section>
+            `;
+        }
+
+        /**
+         * Render Projects Section
+         * Checks each project's "enabled" / "show" / "visible" boolean property
+         */
+        function renderProjects(projects) {
+            if (!projects || !projects.length) return '';
+
+            const activeProjects = projects.filter(proj => proj.enabled !== false && proj.show !== false && proj.visible !== false);
+            if (!activeProjects.length) return '';
+
+            const renderedItems = activeProjects.map((proj, index) => {
+                const isLast = (index === activeProjects.length - 1);
+                const name = proj.name || proj.title || '';
+                const url = proj.url || proj.link;
+                const date = proj.date || proj.dates || proj.period || '';
+                const subtitle = proj.subtitle || proj.techStack || proj.role || '';
+                const cleanUrl = url ? getCleanDisplayUrl(url) : '';
+
+                const nameHtml = url
+                    ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a><span class="print-url"> (${cleanUrl})</span>`
+                    : name;
+
+                const bulletsHtml = renderBullets(proj.bullets || proj.highlights);
+                const paragraphHtml = proj.description 
+                    ? `<p class="entry-paragraph">${formatMarkdown(proj.description)}</p>` 
+                    : '';
+
+                return `
+                    <article class="entry project-entry${isLast ? ' is-last' : ''}">
+                        <div class="entry-top-row">
+                            <h3 class="entry-project-name">${nameHtml}</h3>
+                            ${date ? `<span class="entry-date">${date}</span>` : ''}
+                        </div>
+                        ${subtitle ? `<div class="entry-sub-row">${subtitle}</div>` : ''}
+                        ${paragraphHtml}
+                        ${bulletsHtml}
+                    </article>
+                `;
+            });
+
+            const firstItem = renderedItems[0] || '';
+            const otherItems = renderedItems.slice(1).join('');
+
+            return `
+                <section class="resume-section" id="projects-section">
+                    <div class="section-lead-group">
+                        ${renderSectionHeader('PROJECTS')}
+                        ${firstItem}
+                    </div>
+                    ${otherItems ? `<div class="entries-list">${otherItems}</div>` : ''}
+                </section>
+            `;
+        }
+
+        /**
+         * Render Skills Section (Always Categorized)
+         * Formats: Category: Item1, Item2, Item3...
+         */
+        function renderSkills(skills, skillCategories) {
+            const rawCategories = skillCategories || skills;
+            if (!rawCategories || !rawCategories.length) return '';
+
+            let categories = [];
+            if (Array.isArray(rawCategories)) {
+                categories = rawCategories.filter(cat => cat.enabled !== false);
+            }
+
+            if (!categories.length) return '';
+
+            const rowsHtml = categories.map(cat => {
+                const label = cat.category || cat.name || '';
+                let itemsStr = '';
+                if (Array.isArray(cat.items || cat.skills)) {
+                    itemsStr = (cat.items || cat.skills).join(', ');
+                } else if (typeof (cat.items || cat.skills) === 'string') {
+                    itemsStr = cat.items || cat.skills;
+                } else if (cat.values) {
+                    itemsStr = Array.isArray(cat.values) ? cat.values.join(', ') : cat.values;
+                }
+
+                return `
+                    <div class="skill-cat-row">
+                        <strong class="skill-cat-label">${label}:</strong>
+                        <span class="skill-cat-values">${itemsStr}</span>
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <section class="resume-section section-lead-group" id="skills-section">
+                    ${renderSectionHeader('SKILLS')}
+                    <div class="skills-categories">
+                        ${rowsHtml}
+                    </div>
+                </section>
+            `;
+        }
+
+        /**
+         * Render Certificates Section
+         */
+        function renderCertificates(certs) {
+            if (!certs || !certs.length) return '';
+            const activeCerts = certs.filter(c => c.enabled !== false);
+            if (!activeCerts.length) return '';
+
+            const itemsHtml = activeCerts.map((cert, index) => {
+                const isLast = (index === activeCerts.length - 1);
+                const name = cert.name || cert.title || '';
+                const url = cert.url || cert.link;
+                const issuer = cert.issuer || cert.organization || '';
+                const date = cert.date || '';
+                const cleanUrl = url ? getCleanDisplayUrl(url) : '';
+
+                const nameHtml = url 
+                    ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a><span class="print-url"> (${cleanUrl})</span>`
+                    : name;
+
+                return `
+                    <div class="cert-item${isLast ? ' is-last' : ''}">
+                        <div class="entry-top-row">
+                            <h3 class="cert-name">${nameHtml}</h3>
+                            ${date ? `<span class="entry-date">${date}</span>` : ''}
+                        </div>
+                        ${issuer ? `<div class="cert-issuer">${issuer}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <section class="resume-section" id="certificates-section">
+                    ${renderSectionHeader('CERTIFICATES')}
+                    <div>
+                        ${itemsHtml}
+                    </div>
+                </section>
+            `;
+        }
+
+        /**
+         * Render Languages Section
+         */
+        function renderLanguages(languages) {
+            if (!languages || !languages.length) return '';
+            const activeLangs = languages.filter(l => l.enabled !== false);
+            if (!activeLangs.length) return '';
+
+            return `
+                <section class="resume-section" id="languages-section">
+                    ${renderSectionHeader('LANGUAGES')}
+                    <div class="languages-grid">
+                        ${activeLangs.map(l => `
+                            <div class="language-item">
+                                <span class="language-name">${l.name || l.language || ''}</span>
+                                <span class="language-level">${l.level || l.proficiency || ''}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </section>
+            `;
+        }
+
+        /**
+         * Main Render Function
+         * Section order:
+         * 1. Header
+         * 2. SUMMARY
+         * 3. EDUCATION (after summary, before experience)
+         * 4. EXPERIENCE
+         * 5. PROJECTS
+         * 6. SKILLS
+         * 7. (Optional sections: Internship, Organizations, Certificates, Languages)
+         *
+         * Every section checks boolean flags in data.sections (e.g. data.sections.education === false)
+         */
+        function renderResume(data) {
+            const root = document.getElementById('resume-root');
+            if (!root) return;
+
+            if (data.header && data.header.name) {
+                document.title = `${data.header.name} - Resume`;
+            }
+
+            const sec = data.sections || {};
+
+            // Page 1 content:
+            let page1Html = '';
+            page1Html += renderHeader(data.header);
+
+            // 1. Summary
+            if (sec.summary !== false && data.summary) {
+                page1Html += renderSummary(data.summary);
+            }
+
+            // 2. Education (Placed immediately after summary and before experience)
+            if (sec.education !== false && data.education && data.education.length) {
+                page1Html += renderEducation(data.education);
+            }
+
+            // 3. Experience
+            if (sec.experience !== false && data.experience && data.experience.length) {
+                page1Html += renderEntrySection('experience-section', 'EXPERIENCE', data.experience);
+            }
+
+            // Page 2 content:
+            let page2Html = '';
+
+            // Optional: Internship (if enabled)
+            if ((sec.internship === true || sec.internships === true) && (data.internships || data.internship)) {
+                page2Html += renderEntrySection('internship-section', 'INTERNSHIP', data.internships || data.internship);
+            }
+
+            // 4. Projects
+            if (sec.projects !== false && data.projects && data.projects.length) {
+                page2Html += renderProjects(data.projects);
+            }
+
+            // Optional: Organizations (if enabled)
+            if ((sec.organizations === true || sec.organization === true) && (data.organizations || data.organization)) {
+                page2Html += renderEntrySection('organizations-section', 'ORGANIZATIONS', data.organizations || data.organization);
+            }
+
+            // Optional: Certificates (if enabled)
+            if ((sec.certificates === true || sec.certificate === true) && data.certificates && data.certificates.length) {
+                page2Html += renderCertificates(data.certificates);
+            }
+
+            // 5. Skills (Always categorized)
+            if (sec.skills !== false && (data.skills || data.skillCategories)) {
+                page2Html += renderSkills(data.skills, data.skillCategories);
+            }
+
+            // Optional: Languages (if enabled)
+            if ((sec.languages === true || sec.language === true) && data.languages && data.languages.length) {
+                page2Html += renderLanguages(data.languages);
+            }
+
+            const pages = [];
+            if (page1Html.trim()) pages.push(page1Html);
+            if (page2Html.trim()) pages.push(page2Html);
+
+            const totalPages = pages.length;
+
+            let finalHtml = pages.map((pageContent, idx) => {
+                const pageNum = idx + 1;
+                return `
+                    <div class="resume-sheet-wrapper" id="sheet-wrapper-${pageNum}">
+                        <div class="page-indicator" aria-hidden="true">
+                            <span>A4 Document</span>
+                            <span class="badge">Page ${pageNum} of ${totalPages}</span>
+                        </div>
+                        <div class="resume-page" id="page-${pageNum}" data-page="${pageNum}">
+                            ${pageContent}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            root.innerHTML = finalHtml;
+        }
+
+        /**
+         * Toggle Preview of Print-Friendly URLs on screen
+         */
+        function togglePrintLinksPreview() {
+            document.body.classList.toggle('preview-print-links');
+            const btn = document.getElementById('togglePrintLinksBtn');
+            if (btn) btn.classList.toggle('active');
+        }
+
+        /**
+         * Update toolbar status badge
+         */
+        function updateSourceBadge(text, isLive) {
+            const badge = document.getElementById('sourceBadgeText');
+            const dot = document.querySelector('.status-badge .dot');
+            if (badge) badge.textContent = text;
+            if (dot) dot.style.backgroundColor = isLive ? '#22c55e' : '#3b82f6';
+        }
+
+        /**
+         * File input fallback handler for local file browsing
+         */
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        renderResume(data);
+                        updateSourceBadge('Custom JSON Loaded', true);
+                    } catch (err) {
+                        alert('Error parsing JSON file: ' + err.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        /**
+         * Load resume data:
+         * 1. Try fetching external resume.json (works on web servers, localhost, Vercel, GitHub Pages)
+         * 2. Seamlessly falls back to embedded data if opened directly via file:// or offline
+         */
+        async function loadResume() {
+            // 1. Try live fetch
+            try {
+                const response = await fetch('./resume.json', { cache: 'no-cache' });
+                if (response.ok) {
+                    const data = await response.json();
+                    renderResume(data);
+                    updateSourceBadge('Live JSON file (resume.json)', true);
+                    return;
+                }
+            } catch (fetchErr) {
+                console.info('Live fetch not available (likely file:// protocol or offline). Using embedded data.', fetchErr);
+            }
+
+            // 2. Seamless offline fallback using embedded data
+            const embeddedTag = document.getElementById('embeddedResumeData');
+            if (embeddedTag && embeddedTag.textContent.trim()) {
+                try {
+                    const data = JSON.parse(embeddedTag.textContent);
+                    renderResume(data);
+                    updateSourceBadge('Embedded Data (Offline Mode)', false);
+                    return;
+                } catch (parseErr) {
+                    console.error('Error parsing embedded data:', parseErr);
+                }
+            }
+
+            // 3. Fallback error state if both fail
+            const root = document.getElementById('resume-root');
+            if (root) {
+                root.innerHTML = `
+                    <div class="fallback-container" style="padding: 40px 20px; text-align: center; color: #dc2626; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+                        <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">Unable to load resume data</h2>
+                        <p style="color: #525252; font-size: 14px; max-width: 500px; margin: 0 auto 16px auto; line-height: 1.5;">
+                            Please select your resume.json file below:
+                        </p>
+                        <label style="display: inline-block; background-color: #2563eb; color: #ffffff; padding: 8px 18px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer;">
+                            Select resume.json
+                            <input type="file" accept=".json" style="display: none;" onchange="handleFileSelect(event)">
+                        </label>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize on DOM load
+        document.addEventListener('DOMContentLoaded', loadResume);
+    </script>
+
+    <!-- Embedded Default Data (Zero-setup offline fallback when opened directly via file://) -->
+    <script type="application/json" id="embeddedResumeData">
+{
+  "sections": {
+    "summary": true,
+    "education": true,
+    "experience": true,
+    "projects": true,
+    "skills": true,
+    "internship": false,
+    "organizations": false,
+    "certificates": false,
+    "languages": false
+  },
+  "header": {
+    "name": "Muhammad Zeeshan",
+    "title": "Full-Stack Software Engineer | AI-Assisted Development",
+    "contacts": [
+      {
+        "type": "phone",
+        "icon": "fas fa-phone",
+        "label": "(+92) 309 6035017",
+        "href": "tel:+923096035017"
+      },
+      {
+        "type": "email",
+        "icon": "fas fa-envelope",
+        "label": "contact.muhammad.zeeshan@gmail.com",
+        "href": "mailto:contact.muhammad.zeeshan@gmail.com"
+      },
+      {
+        "type": "github",
+        "icon": "fab fa-github",
+        "label": "zexhan17",
+        "href": "https://github.com/zexhan17"
+      },
+      {
+        "type": "linkedin",
+        "icon": "fab fa-linkedin",
+        "label": "Muhammad Zeeshan",
+        "href": "https://www.linkedin.com/in/muhammad-zeeshan-801448144"
+      },
+      {
+        "type": "portfolio",
+        "icon": "fas fa-globe",
+        "label": "Portfolio",
+        "href": "https://portfolio-nu-wine-q8a9w0y4g6.vercel.app/"
+      },
+      {
+        "type": "location",
+        "icon": "fas fa-location-dot",
+        "label": "Faisalabad, Pakistan"
+      }
+    ]
+  },
+  "summary": "Full-Stack Software Engineer with 4+ years of experience building scalable SaaS platforms, enterprise applications and modern web applications. Experienced across frontend, backend and database development using React, NestJS, PostgreSQL, ASP.NET Core and modern TypeScript ecosystems, with additional experience building applications using SvelteKit and Next.js. Skilled in designing scalable REST APIs, backend architectures and maintainable software while leveraging AI-assisted development workflows to accelerate development, debugging and rapid delivery. Focused on building reliable, production-ready software with clean architecture and excellent user experience.",
+  "education": [
+    {
+      "enabled": true,
+      "degree": "BS Information Technology",
+      "institution": "Government College University Faisalabad",
+      "date": "2019 - 2023",
+      "description": "GPA: 3.71/4.00 (92.75%)"
+    }
+  ],
+  "experience": [
+    {
+      "enabled": true,
+      "role": "Full-Stack Software Engineer",
+      "company": "YalGamers",
+      "url": "https://app.yalgamers.gg",
+      "location": "Remote",
+      "date": "April 2024 - July 2026",
+      "bullets": [
+        "Delivered full-stack features for a Web3 gaming platform serving users across the MENA region using **React**, **NestJS** and **PostgreSQL**.",
+        "Designed REST APIs, PostgreSQL database models and Redis-backed services that simplified feature development and improved backend maintainability.",
+        "Implemented real-time functionality using **Socket.IO**, enabling responsive user interactions and live application updates.",
+        "Accelerated feature delivery by incorporating **AI-assisted development** into implementation, debugging and iterative development workflows.",
+        "Worked directly with international clients to translate business requirements into production-ready software and support multiple successful production releases.",
+        "Contributed across frontend, backend, deployment and production support, helping maintain reliable application performance and continuous product delivery."
+      ]
+    },
+    {
+      "enabled": true,
+      "role": "Full-Stack Software Engineer",
+      "company": "SiftoWhiz",
+      "url": "https://siftowhiz.com/home",
+      "location": "Onsite - Faisalabad, Pakistan",
+      "date": "April 2022 - April 2024",
+      "bullets": [
+        "Delivered enterprise web applications using **React**, **Angular** and **ASP.NET Core** that streamlined internal business operations for multiple clients.",
+        "Designed REST APIs and **SQL Server** database solutions that streamlined business workflows and supported operational dashboards.",
+        "Improved application stability and long-term maintainability through refactoring, performance optimisation and production issue resolution.",
+        "Increased deployment reliability by introducing automated testing and CI-friendly development practices.",
+        "Delivered end-to-end software features from requirements through deployment while collaborating with clients and cross-functional teams."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "enabled": true,
+      "name": "YalGamers Platform",
+      "url": "https://app.yalgamers.gg",
+      "bullets": [
+        "Built and maintained a scalable Web3 gaming platform for the MENA region using **React**, **Nest.js** and **PostgreSQL**. Designed REST APIs, PostgreSQL data models and reusable frontend components to support scalable application development."
+      ]
+    },
+    {
+      "enabled": true,
+      "name": "Jamily Event Platform",
+      "url": "https://jamily.app",
+      "bullets": [
+        "Developed a social event platform enabling users to discover events, invite friends and manage event participation. Built scalable backend APIs and responsive user interfaces using modern frontend and backend technologies."
+      ]
+    },
+    {
+      "enabled": true,
+      "name": "Web3 Crowdfunding Platform",
+      "url": "https://crowdfunding-web3-two.vercel.app/",
+      "bullets": [
+        "Developed a blockchain-based crowdfunding platform with wallet authentication, smart contract integration and secure backend services for managing fundraising campaigns."
+      ]
+    },
+    {
+      "enabled": true,
+      "name": "Slotly",
+      "url": "https://slotly-blush.vercel.app/",
+      "bullets": [
+        "Designed and delivered a slot booking platform featuring scalable backend services, real-time notifications and responsive user interfaces focused on performance and reliability."
+      ]
+    },
+    {
+      "enabled": true,
+      "name": "Web3 E-Commerce Platform",
+      "url": "https://web3-e-commerce-lac.vercel.app/",
+      "bullets": [
+        "Developed a blockchain-enabled e-commerce platform with wallet authentication, smart contract integration and secure backend services for digital commerce workflows."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages",
+      "items": ["TypeScript", "JavaScript", "SQL"]
+    },
+    {
+      "category": "Frontend",
+      "items": ["React", "Next.js", "SvelteKit", "Angular", "Tailwind CSS"]
+    },
+    {
+      "category": "Backend",
+      "items": ["Node.js", "NestJS", "ASP.NET Core", "REST APIs", "Socket.IO", "PostgreSQL", "SQL Server", "Redis", "Supabase"]
+    },
+    {
+      "category": "AI & Tools",
+      "items": ["AI-Assisted Development", "LLM Integration", "Prompt Engineering", "Software Architecture", "System Design", "Git", "Linux"]
+    }
+  ]
+}
+    </script>
+</body>
 </html>
